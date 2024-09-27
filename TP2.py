@@ -11,10 +11,15 @@ Noms et matricules : Nom1 (Matricule1), Nom2 (Matricule2)
 ########################################################################################################## 
 
 # TODO : Écrire votre code ici
+import csv
 
+csvfile= open("collection_bibliotheque.csv", newline="")
+collection_bibliotheque= csv.DictReader(csvfile)
 
-
-
+bibliotheque={ligne["cote_rangement"]:ligne for ligne in collection_bibliotheque}
+for i in bibliotheque:
+    bibliotheque[i].pop("cote_rangement")
+print(f' \n Bibliotheque initiale : {bibliotheque} \n')
 
 
 ########################################################################################################## 
@@ -22,6 +27,21 @@ Noms et matricules : Nom1 (Matricule1), Nom2 (Matricule2)
 ########################################################################################################## 
 
 # TODO : Écrire votre code ici
+
+csvfile= open("nouvelle_collection.csv", newline="")
+nouvelle_collection= csv.DictReader(csvfile)
+
+
+bibliotheque2= {ligne["cote_rangement"]:ligne for ligne in nouvelle_collection}
+for i in bibliotheque2:
+    bibliotheque2[i].pop("cote_rangement")
+    #biblio2.key()
+    #for kye,data in dict2 if key in dict2=key in dict1 (update)
+
+
+
+    
+
 
 
 
