@@ -3,7 +3,7 @@ TP2 : Système de gestion de livres pour une bibliothèque
 
 Groupe de laboratoire : XX
 Numéro d'équipe :  YY
-Noms et matricules : Nom1 (Matricule1), Nom2 (Matricule2)
+Noms et matricules : Yolaine Ntabugi Karemere (2379172), Nom2 (Matricule2)
 """
 
 ########################################################################################################## 
@@ -31,22 +31,14 @@ print(f' \n Bibliotheque initiale : {bibliotheque} \n')
 csvfile= open("nouvelle_collection.csv", newline="")
 nouvelle_collection= csv.DictReader(csvfile)
 
-
-bibliotheque2= {ligne["cote_rangement"]:ligne for ligne in nouvelle_collection}
-for i in bibliotheque2:
-    bibliotheque2[i].pop("cote_rangement")
-    #biblio2.key()
-    #for kye,data in dict2 if key in dict2=key in dict1 (update)
-
-
+for ligne in nouvelle_collection:
+    if ligne["cote_rangement"]==ligne["cote_rangement"] in bibliotheque:
+        print(f"Le livre {ligne["cote_rangement"]} ---- {ligne["titre"]} par {ligne["auteur"]} ---- est déjà présent dans la bibliothèque")
+    else: 
+        bibliotheque.update({"titre":ligne["titre"], "auteur": ligne["auteur"], "date_publication": ligne["date_publication"]})
+        print(f"Le livre {ligne["cote_rangement"]} ---- {ligne["titre"]} par {ligne["auteur"]} ---- a été ajouté avec succès")
 
     
-
-
-
-
-
-
 
 ########################################################################################################## 
 # PARTIE 3 : Modification de la cote de rangement d'une sélection de livres
