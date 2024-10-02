@@ -69,16 +69,19 @@ print(f' \n Bibliotheque avec modifications de cote : {bibliotheque} \n')
 csvfile= open("emprunts.csv", newline="")
 emprunts= csv.DictReader(csvfile)
 
-for cote_rangement in bibliotheque:
-    bibliotheque[cote_rangement]["emprunts"] = "disponible"
-    
 for ligne in emprunts:
-    for cote_rangement in bibliotheque:
-        if ligne["cote_rangement"] in bibliotheque:
-            bibliotheque[ligne["cote_rangement"]]["emprunts"]= "emprunté"
-    
 
+    cote_rangement = ligne["cote_rangement"]
+    date_emprunt= ligne["date_emprunt"]
+    if cote_rangement in bibliotheque:
+        bibliotheque[cote_rangement]["emprunts"]= "emprunté"
+        bibliotheque[cote_rangement]["date_emprunt"]= date_emprunt
+    if cote_rangement not in bibliotheque:
+        bibliotheque[cote_rangement]["emprunts"] = "disponible"
 
+        
+
+print(f' \n Bibliotheque avec ajout des emprunts : {bibliotheque} \n')
 
 
 
@@ -87,9 +90,26 @@ for ligne in emprunts:
 ########################################################################################################## 
 
 # TODO : Écrire votre code ici
+from datetime import datetime,timedelta
+
+date= datetime.now()
 
 
+for cote_rangement in bibliotheque:
+    if "date_emprunt" in bibliotheque[cote_rangement]:
+        date_emprunt= datetime.strptime(bibliotheque[cote_rangement]["date_emprunt"], "%Y-%m-%d")
+        date_retour= date_emprunt + timedelta(days=30)
+
+        if date_retour < date:
+            jour_retard= (date-date_retour).days
+            frais_retard= min(jour_retard*2, 100)
+            bibliotheque[cote_rangement]["frais_retard"]= frais_retard
+            print(f"Le livre {cote_rangement}  ---- est en retard est à {frais_retard}$ de frais de retard")
+
+        if date> date_emprunt+ timedelta(days=365):
+            bibliotheque[cote_rangement]["livres_perdus"]= "livres_perdus"
+        
+print(f' \n Bibliotheque avec ajout des retards et frais : {bibliotheque} \n')
 
 
-
-
+    
