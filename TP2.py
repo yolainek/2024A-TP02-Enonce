@@ -32,7 +32,7 @@ csvfile= open("nouvelle_collection.csv", newline="")
 nouvelle_collection= csv.DictReader(csvfile)
 
 for ligne in nouvelle_collection:
-    if ligne["cote_rangement"]==ligne["cote_rangement"] in bibliotheque:
+    if ligne["cote_rangement"] in bibliotheque:
         print(f"Le livre {ligne["cote_rangement"]} ---- {ligne["titre"]} par {ligne["auteur"]} ---- est déjà présent dans la bibliothèque")
     else: 
         bibliotheque.update({"titre":ligne["titre"], "auteur": ligne["auteur"], "date_publication": ligne["date_publication"]})
@@ -46,8 +46,16 @@ for ligne in nouvelle_collection:
 
 # TODO : Écrire votre code ici
 
+keys_to_change=[]
+for cote_rangement in bibliotheque:
+    if cote_rangement[0]== "S"and bibliotheque[cote_rangement]["auteur"] == "William Shakespeare":
+        new_key = cote_rangement.replace("S","WS")
+        keys_to_change.append((cote_rangement, new_key))
 
+for old_key, new_key in keys_to_change:
+    bibliotheque[new_key] = bibliotheque.pop(old_key)
 
+print(f' \n Bibliotheque avec modifications de cote : {bibliotheque} \n')
 
 
 
@@ -58,7 +66,17 @@ for ligne in nouvelle_collection:
 
 # TODO : Écrire votre code ici
 
+csvfile= open("emprunts.csv", newline="")
+emprunts= csv.DictReader(csvfile)
 
+for cote_rangement in bibliotheque:
+    bibliotheque[cote_rangement]["emprunts"] = "disponible"
+    
+for ligne in emprunts:
+    for cote_rangement in bibliotheque:
+        if ligne["cote_rangement"] in bibliotheque:
+            bibliotheque[ligne["cote_rangement"]]["emprunts"]= "emprunté"
+    
 
 
 
